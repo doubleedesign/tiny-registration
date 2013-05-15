@@ -232,48 +232,4 @@ if (!function_exists('get_tiny_success')) {
   }
 }
 
-
-// ============== Coffee Nag
-
-add_action('admin_notices', 'tiny_login_coffee_nag');
-function tiny_login_coffee_nag() {
-  global $current_user ;
-  $plugin_data = get_plugin_data( __FILE__ );
-  $user_id = $current_user->ID;
-  if (current_user_can('activate_plugins') && !get_user_meta($user_id, $plugin_data['TextDomain'].'_nag_ignore',true)&& (get_user_meta($user_id, $plugin_data['TextDomain'].'_nag_snooze',true)-time()<0)) {
-        /* Check that the user hasn't already clicked to ignore the message */
-        echo '<div class="updated"><p>'; 
-        printf(__('So you like using %3$s, huh. Fancy to buy %4$s a coffee? <a href="%2$s">YES, please!</a> | <a href="%1$s">No, thank you...</a>'), '?tiny_login_coffee_snooze=1', 'http://kava.tribuna.lt/arunas?tiny_plugin='.$plugin_data['TextDomain'].'&tiny_callback='.urlencode(get_bloginfo( 'url' )), $plugin_data['Name'],$plugin_data['AuthorName'],'tiny_login');
-        echo "</p></div>";
-  }
-}
-
-add_action('admin_init', 'tiny_login_coffee_snooze');
-function tiny_login_coffee_snooze() {
-  global $current_user;
-  $user_id = $current_user->ID;
-  if ( isset($_GET['tiny_login_coffee_snooze']) && '1' == $_GET['tiny_login_coffee_snooze'] ) {
-    $plugin_data = get_plugin_data( __FILE__ );
-    update_user_meta($user_id, $plugin_data['TextDomain'].'_nag_snooze',strtotime('+ 1 month'));
-  }
-}
-add_action('init', 'tiny_login_coffee_callback');
-function tiny_login_coffee_callback() {
-  global $current_user;
-  $user_id = $current_user->ID;
-  if ( isset($_GET['tiny_login_coffee_hide']) && '1' == $_GET['tiny_login_coffee_hide'] ) {
-    $plugin_data = get_plugin_data( __FILE__ );
-    $i = update_user_meta($user_id, $plugin_data['TextDomain'].'_nag_ignore',true);
-    die($i);
-  }
-}
-register_activation_hook( __FILE__, 'tiny_login_coffee_activation' );
-function tiny_login_coffee_activation() {
-  global $current_user;
-  $user_id = $current_user->ID;
-  $plugin_data = get_plugin_data( __FILE__ );
-  update_user_meta($user_id, $plugin_data['TextDomain'].'_nag_snooze',strtotime('+ 1 week'));
-}
-
- 
 ?>
