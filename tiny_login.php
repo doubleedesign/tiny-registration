@@ -2,7 +2,7 @@
 /*
 Plugin Name: tinyLogin
 Plugin URI: http://wp.tribuna.lt/tiny-login
-Description: A simple front-end login/registration system. Adds template tags and shortcodes.
+Description: A simple front-end login/registration system. Adds template tags and shortcodes. Shortcodes: [tiny_form_login]/[tiny_form_register]. Template tags: get_tiny_form_login()/get_tiny_form_register() and  the_tiny_form_login()/the_tiny_form_register()
 Version: 0.1
 Author: Arūnas
 Author URI: http://wp.tribuna.lt/
