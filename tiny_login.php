@@ -163,7 +163,7 @@ function tiny_handle() {
           $creds['user_password'] = wp_generate_password();
           $creds['role'] = get_option('default_role');
           //$creds['remember'] = false;
-          $user = wp_signon( $creds );
+          $user = wp_inser_user( $creds );
           if ( is_wp_error($user) ) {
             set_tiny_error($user->get_error_message(),$_REQUEST['tiny_form']);
           } else {
