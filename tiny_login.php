@@ -160,7 +160,7 @@ function tiny_handle() {
           $creds = array();
           $creds['user_login'] = $_POST['tiny_username'];
           $creds['user_email'] = $_POST['tiny_email'];
-          $creds['user_password'] = wp_generate_password();
+          $creds['user_pass'] = wp_generate_password();
           $creds['role'] = get_option('default_role');
           //$creds['remember'] = false;
           $user = wp_inser_user( $creds );
@@ -168,7 +168,7 @@ function tiny_handle() {
             set_tiny_error($user->get_error_message(),$_REQUEST['tiny_form']);
           } else {
             set_tiny_success(__('Registration successful. Your password will be sent via email shortly.','tiny_login'),$_REQUEST['tiny_form']);
-            wp_new_user_notification($user,$creds['user_password']);
+            wp_new_user_notification($user,$creds['user_pass']);
             $success = true;
           }
         }
@@ -179,6 +179,7 @@ function tiny_handle() {
     // if redirect is set and action was successful
     if (isset($_REQUEST['redirect']) && $_REQUEST['redirect'] && $success) {
       wp_redirect($_REQUEST['redirect']);
+      die();
     }      
   }
 }
